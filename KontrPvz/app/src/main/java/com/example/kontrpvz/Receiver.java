@@ -10,11 +10,10 @@ public class Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if ("com.example.broadcast.MY_NOTIFICATION".equals(intent.getAction())) {
-            String receivedText = intent.getStringExtra("com.codinginflow.EXTRA_TEXT");
+        if ("1_Programos_nesist_trans".equals(intent.getAction())) {
             String data = intent.getStringExtra("extra_data");
             String senderIntent = intent.getAction();
-            String senderProgram = intent.getPackage();
+            String senderProgram = intent.getStringExtra("sender_application");
 
             setMainText(senderIntent, senderProgram, data);
             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
@@ -28,13 +27,13 @@ public class Receiver extends BroadcastReceiver {
         ComponentName cn1 = new ComponentName("com.example.sender1",
                 "com.example.sender1.ResponseBroadcastReceiver");
         intent.setComponent(cn1);
-        MainActivity.getInstace().sendBroadcast(intent);
+        MainActivity.getInstance().sendBroadcast(intent);
     }
 
     private void setMainText(String senderIntent, String senderProgram, String data)
     {
         try {
-            MainActivity.getInstace().updateTheTextView(senderIntent, senderProgram, data);
+            MainActivity.getInstance().updateTheTextView(senderIntent, senderProgram, data);
         } catch (Exception e) {
 
         }

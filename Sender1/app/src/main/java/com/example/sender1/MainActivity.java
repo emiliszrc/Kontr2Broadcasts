@@ -1,7 +1,9 @@
 package com.example.sender1;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +18,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendBroadcast(View v) {
-        Intent intent = new Intent("com.example.broadcast.MY_NOTIFICATION");
-        intent.putExtra("com.codinginflow.EXTRA_TEXT", "Broadcast received");
-        intent.putExtra("extra_data","Anime gal nereikia");
+        Intent intent = new Intent("1_Programos_nesist_trans");
+        intent.putExtra("sender_application", getApplicationName(this));
+        intent.putExtra("extra_data","ping");
         sendBroadcast(intent);
+    }
+
+    public static String getApplicationName(Context context) {
+        ApplicationInfo applicationInfo = context.getApplicationInfo();
+        int stringId = applicationInfo.labelRes;
+        return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
     }
 }

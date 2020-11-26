@@ -9,7 +9,7 @@ public class MainActivity extends AppCompatActivity {
     private Receiver receiver = new Receiver();
     private static MainActivity ins;
 
-    public static MainActivity getInstace() {
+    public static MainActivity getInstance() {
         return ins;
     }
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        IntentFilter intent = new IntentFilter("com.example.broadcast.MY_NOTIFICATION");
+        IntentFilter intent = new IntentFilter("1_Programos_nesist_trans");
         registerReceiver(receiver, intent);
         ins = this;
     }
@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             public void run() {
                 TextView textViewTitle = findViewById(R.id.title);
-                textViewTitle.setText("Received message with data:");
+                textViewTitle.setText("Gautas naujas transliavimo pranešimas:");
                 TextView textViewIntentName = findViewById(R.id.textViewIntentName);
-                textViewIntentName.setText(senderIntent);
-                TextView textViewProgramName = findViewById(R.id.textViewData);
-                textViewProgramName.setText(senderProgram);
+                textViewIntentName.setText("Intentas: " + senderIntent);
+                TextView textViewProgramName = findViewById(R.id.textViewSenderName);
+                textViewProgramName.setText("Siuntėjas: " + senderProgram);
                 TextView textView = findViewById(R.id.textViewData);
-                textView.setText(data);
+                textView.setText("Papildoma informacija: " + data);
             }
         });
     }
