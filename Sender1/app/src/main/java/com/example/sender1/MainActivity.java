@@ -18,9 +18,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendBroadcast(View v) {
+        String receiverLocation = ResponseBroadcastReceiver.class.toString();
+        String replyTo = receiverLocation.replace("class ", "");
+
         Intent intent = new Intent("1_Programos_nesist_trans");
         intent.putExtra("sender_application", getApplicationName(this));
         intent.putExtra("extra_data","ping");
+        intent.putExtra("sender_location", getApplicationContext().getPackageName());
+        intent.putExtra("reply_to", replyTo);
+
         sendBroadcast(intent);
     }
 

@@ -14,18 +14,19 @@ public class Receiver extends BroadcastReceiver {
             String data = intent.getStringExtra("extra_data");
             String senderIntent = intent.getAction();
             String senderProgram = intent.getStringExtra("sender_application");
+            String senderLocation = intent.getStringExtra("sender_location");
+            String replyTo = intent.getStringExtra("reply_to");
 
             setMainText(senderIntent, senderProgram, data);
             Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
 
-            respondToSender();
+            respondToSender(senderLocation, replyTo);
         }
     }
 
-    private void respondToSender() {
-        Intent intent = new Intent("com.example.RESPONSE_ACTION");
-        ComponentName cn1 = new ComponentName("com.example.sender1",
-                "com.example.sender1.ResponseBroadcastReceiver");
+    private void respondToSender(String senderLocation, String replyTo) {
+        Intent intent = new Intent("2_Programos_nesist_isreikst_trans");
+        ComponentName cn1 = new ComponentName(senderLocation, replyTo);
         intent.setComponent(cn1);
         MainActivity.getInstance().sendBroadcast(intent);
     }
